@@ -12,20 +12,22 @@ A subarray is a contiguous sequence of elements within an array.'''
 
 
 def longestSubarray(nums):
-    count = answer = 0
+    N = len(nums)
+    answer = [0, 0]
+    for i in range(N):
+        andValue = ~0
+        for j in range(i, N):
+            andValue &= nums[j]
 
-    # To ascertain the maximum value.
-    max_num = max(nums) 
+            if andValue == answer[0]:
+                answer = [andValue, max(answer[1], j - i + 1)]
 
-    '''Let us determine the subarray with the maximum length that 
-        comprises solely of elements equal to the maximum number.'''
-    for num in nums:
-        if num == max_num:
-            # Increment the count by 1 as we have encountered a contiguous element that is equal to the maximum value.
-            count += 1
-        else:
-            #Set the value back to zero.
-            count = 0
-        # Optimize or maximize the resulting answer.
-        answer = max(answer, count)
-    return answer
+            if andValue > answer[0]:
+                answer = [andValue, j - i + 1]
+                
+    return answer[1]
+
+            
+
+            
+
