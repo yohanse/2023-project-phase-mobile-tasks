@@ -1,5 +1,5 @@
-abstract class Event{}
+abstract class CounterEvent{}
 
-class IncreamentEvent extends Event{}
+class IncreamentEvent extends CounterEvent{}
 
-class DecreamentEvent extends Event{}
+class DecreamentEvent extends CounterEvent{}

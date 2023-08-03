@@ -9,40 +9,44 @@ class CounterApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Counter App"),
-        ),
-        body: BlocBuilder(builder: (context, snapshot) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Counter App"),
+      ),
+      body: BlocBuilder<CounterBloc, int>(
+        builder: (context, state) {
           return Center(
             child: Text(
-              "$snapshot",
+              "$state",
               style: const TextStyle(
-                fontSize: 30,
+                fontSize: 50,
                 fontWeight: FontWeight.w800,
               ),
             ),
           );
-        }),
-        floatingActionButton: Row(
-          children: [
-            FloatingActionButton(
-              onPressed: () => CounterBloc().add(IncreamentEvent()),
-              child: const Icon(
-                Icons.add,
-                size: 20,
-              ),
+        },
+      ),
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () => BlocProvider.of<CounterBloc>(context).add(IncreamentEvent()),
+            child: const Icon(
+              Icons.add,
+              size: 30,
             ),
-            FloatingActionButton(
-              onPressed: () => CounterBloc().add(IncreamentEvent()),
-              child: const Icon(
-                Icons.remove,
-                size: 20,
-              ),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          FloatingActionButton(
+            onPressed: () => BlocProvider.of<CounterBloc>(context).add(DecreamentEvent()),
+            child: const Icon(
+              Icons.remove,
+              size: 30,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
