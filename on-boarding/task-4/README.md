@@ -1,6 +1,8 @@
-# second
+# Circular Counter
 
 A new Flutter project.
+
+# I use bloc state managment inorder to learn more about it
 
 ## Getting Started
 
