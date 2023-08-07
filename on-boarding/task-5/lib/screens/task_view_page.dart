@@ -55,7 +55,7 @@ class _TaskListState extends State<TaskList> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  TaskDetailView(task: state.singleData(index)),
+                                  TaskDetailView(task: state.singleData(index), index: index,),
                             ),
                           );
                         },

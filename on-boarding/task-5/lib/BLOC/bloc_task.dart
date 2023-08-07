@@ -8,5 +8,13 @@ class TaskBloc extends Bloc<Task, TaskManager> {
       state.addTask(event.task);
       emit(state);
     });
+    on<UpdateTask>((event, emit) {
+      state.updateTask(
+          event.index,
+          event.title,
+          event.date,
+          event.description);
+      emit(state);
+    });
   }
 }

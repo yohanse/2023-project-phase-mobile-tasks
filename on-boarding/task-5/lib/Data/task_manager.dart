@@ -15,8 +15,9 @@ class TaskManager {
     return _tasks[index];
   }
 
-  List<TaskData> getAllTasks() {
-    return _tasks;
+  void updateTask(int index, String title, String date, String description) {
+    _tasks[index]
+        .update(title: title, description: description, dueDate: date);
   }
 
   int lengthOfTask() {

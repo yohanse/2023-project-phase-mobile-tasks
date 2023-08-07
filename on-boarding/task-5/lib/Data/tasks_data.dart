@@ -7,15 +7,10 @@ class TaskData {
     this._description,
     this._dueDate,
   );
-  void setTitle(String title) {
+
+  void update({title, description, dueDate}) {
     _title = title;
-  }
-
-  void setDescription(String description) {
     _description = description;
-  }
-
-  void setDueDate(String dueDate) {
     _dueDate = dueDate;
   }
 
@@ -33,10 +28,5 @@ class TaskData {
 
   String firstLetter() {
     return _title[0];
-  }
-
-  @override
-  String toString() {
-    return "$_title, $_description, $_dueDate";
   }
 }

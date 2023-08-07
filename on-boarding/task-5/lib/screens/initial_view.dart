@@ -27,7 +27,8 @@ class InitialView extends StatelessWidget {
               },
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
-                    Radius.circular(8.0)), // Customize the corner radius here
+                  Radius.circular(8.0),
+                ), // Customize the corner radius here
               ),
               child: const Text("Get Started"),
             ),
