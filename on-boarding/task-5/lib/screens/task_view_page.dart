@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:second/BLOC/bloc_task.dart';
-import 'package:second/Data/all_tasks.dart';
 import 'package:second/Data/task_manager.dart';
 import 'package:second/screens/task_add_page.dart';
 import 'package:second/screens/task_detail.dart';
