@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:second/Data/all_tasks.dart';
 import 'package:second/screens/task_add_page.dart';
 import 'package:second/screens/task_detail.dart';
 
-import '../Data/all_tasks_data.dart';
+
 import '../widget/widget_task.dart';
 
 class TaskList extends StatefulWidget {
@@ -42,19 +43,21 @@ class _TaskListState extends State<TaskList> {
             Expanded(
               child: ListView.builder(
                 itemBuilder: (context, index) {
-                  return TaskWidget(
-                    index: index,
-                    navigationDetail: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TaskDetailView(index: index),
-                        ),
-                      );
-                    },
+                  return GestureDetector(
+                    child: TaskWidget(
+                      task: allTasks.singleData(index),
+                    ),
+                    onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TaskDetailView(task: allTasks.singleData(index)),
+                          ),
+                        );
+                      },
                   );
                 },
-                itemCount: data.length,
+                itemCount: allTasks.lengthOfTask(),
               ),
             ),
           ],

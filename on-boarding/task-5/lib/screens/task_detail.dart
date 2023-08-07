@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import '../Data/all_tasks_data.dart';
+import 'package:second/Data/tasks_data.dart';
 import '../widget/custom_col_widget.dart';
 
 class TaskDetailView extends StatelessWidget {
-  final int index;
-  const TaskDetailView({super.key, required this.index});
+  final TaskData task;
+  const TaskDetailView({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -27,19 +28,19 @@ class TaskDetailView extends StatelessWidget {
             CustomColumn(
               height: 40,
               title: "Title",
-              text: data[index][0],
+              text: task.getTitle(),
             ),
             const SizedBox(height: 20),
             CustomColumn(
               height: 100,
               title: "Description",
-              text: data[index][2],
+              text: task.getDescription(),
             ),
             const SizedBox(height: 20),
             CustomColumn(
               height: 40,
               title: "Deadline",
-              text: data[index][1],
+              text: task.getDate(),
             ),
           ],
         ),
