@@ -39,7 +39,7 @@ class TaskDetailView extends StatelessWidget {
             CustomColumn(
               height: 40,
               title: "Deadline",
-              text: "${data[index][1].day}/${data[index][1].month}/${data[index][1].year}"
+              text: data[index][1],
             ),
           ],
         ),

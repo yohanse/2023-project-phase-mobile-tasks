@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:second/screens/task_add_page.dart';
 import 'package:second/screens/task_detail.dart';
 
 import '../Data/all_tasks_data.dart';
@@ -70,7 +71,9 @@ class _TaskListState extends State<TaskList> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const TaskList(),
+                    builder: (context) => CreatTask(function: (){
+                      setState(() {});
+                    },),
                   ),
                 );
               },

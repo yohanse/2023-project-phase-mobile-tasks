@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:second/Data/all_tasks_data.dart';
 
 import '../widget/text_withtextfield.dart';
 
 class CreatTask extends StatelessWidget {
-  const CreatTask({super.key});
+  final Function function;
+  CreatTask({super.key, required this.function});
+
+  TextEditingController mainName = TextEditingController();
+  TextEditingController date = TextEditingController();
+  TextEditingController description = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,29 +37,35 @@ class CreatTask extends StatelessWidget {
           children: [
             TextWithTextField(
               title: "Main task name",
-              textController: TextEditingController(),
+              textController: mainName,
             ),
             const SizedBox(
               height: 20,
             ),
             TextWithTextField(
               title: "Due date",
-              textController: TextEditingController(),
+              textController: date,
             ),
             const SizedBox(
               height: 20,
             ),
             TextWithTextField(
               title: "Description",
-              textController: TextEditingController(),
+              textController: description,
             ),
             const SizedBox(
               height: 20,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 120,),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 120,
+              ),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  data.add([mainName.text, date.text, description.text]);
+                  function();
+                  Navigator.pop(context);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFEE6F57),
                   foregroundColor: Colors.white,

@@ -50,7 +50,7 @@ class TaskWidget extends StatelessWidget {
             Expanded(
               flex: 3,
               child: Text(
-                "${data[index][1].day}/${data[index][1].month}/${data[index][1].year}",
+                data[index][1],
                 textAlign: TextAlign.end,
               ),
             )

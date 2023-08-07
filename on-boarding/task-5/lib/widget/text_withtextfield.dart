@@ -20,6 +20,7 @@ class TextWithTextField extends StatelessWidget {
           ),
         ),
         TextField(
+          controller: textController,
           maxLines: null,
           style: const TextStyle(
             fontWeight: FontWeight.w600,
