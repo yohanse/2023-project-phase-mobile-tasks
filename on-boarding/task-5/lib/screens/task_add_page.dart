@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:second/Data/all_tasks.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:second/BLOC/bloc_task.dart';
+import 'package:second/BLOC/event.dart';
 import 'package:second/Data/tasks_data.dart';
 
 import '../widget/text_withtextfield.dart';
 
 // ignore: must_be_immutable
 class CreatTask extends StatelessWidget {
-  final Function function;
-  CreatTask({super.key, required this.function});
+  CreatTask({super.key});
 
   TextEditingController mainName = TextEditingController();
   TextEditingController date = TextEditingController();
@@ -64,8 +65,9 @@ class CreatTask extends StatelessWidget {
               ),
               child: ElevatedButton(
                 onPressed: () {
-                  allTasks.addTask(TaskData(mainName.text, date.text, description.text));
-                  function();
+                  BlocProvider.of<TaskBloc>(context).add(AddTask(
+                      task: TaskData(
+                          mainName.text, description.text, date.text)));
                   Navigator.pop(context);
                 },
                 style: ElevatedButton.styleFrom(

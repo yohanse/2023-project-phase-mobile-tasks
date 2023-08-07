@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:second/BLOC/bloc_task.dart';
 import 'package:second/Data/all_tasks.dart';
+import 'package:second/Data/task_manager.dart';
 import 'package:second/screens/task_add_page.dart';
 import 'package:second/screens/task_detail.dart';
-
 
 import '../widget/widget_task.dart';
 
@@ -41,23 +43,28 @@ class _TaskListState extends State<TaskList> {
               ),
             ),
             Expanded(
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    child: TaskWidget(
-                      task: allTasks.singleData(index),
-                    ),
-                    onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => TaskDetailView(task: allTasks.singleData(index)),
-                          ),
-                        );
-                      },
+              child: BlocBuilder<TaskBloc, TaskManager>(
+                builder: (context, state) {
+                  return ListView.builder(
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        child: TaskWidget(
+                          task: state.singleData(index),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  TaskDetailView(task: state.singleData(index)),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    itemCount: state.lengthOfTask(),
                   );
                 },
-                itemCount: allTasks.lengthOfTask(),
               ),
             ),
           ],
@@ -74,9 +81,7 @@ class _TaskListState extends State<TaskList> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CreatTask(function: (){
-                      setState(() {});
-                    },),
+                    builder: (context) => CreatTask(),
                   ),
                 );
               },
@@ -93,3 +98,4 @@ class _TaskListState extends State<TaskList> {
     );
   }
 }
+

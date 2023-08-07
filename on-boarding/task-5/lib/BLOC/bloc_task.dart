@@ -1,12 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:second/BLOC/event.dart';
+import 'package:second/Data/task_manager.dart';
 
-class TaskBloc extends Bloc<Task, List<List<String>>> {
-
-  TaskBloc() : super([["UI/UX Design", "07/08/2023", "I will develop my self for comming project"],]) {
+class TaskBloc extends Bloc<Task, TaskManager> {
+  TaskBloc() : super(TaskManager()) {
     on<AddTask>((event, emit) {
-      emit((state + 1) % 11);
+      state.addTask(event.task);
+      emit(state);
     });
-    
   }
 }
