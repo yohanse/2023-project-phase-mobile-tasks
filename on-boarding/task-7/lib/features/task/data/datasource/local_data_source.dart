@@ -11,6 +11,8 @@ abstract class LocalDataSource {
   Future<List<TaskEntityModel>> getAllTaskEntityModel();
   Future<bool> editTaskEntityLocalDataSource(
       {required TaskEntityModel taskEntityModel});
+  Future<bool> deleteTaskEntityLocalDataSource({required int id});
+  Future<bool> sortTaskEntityLocalDataSource();
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -72,6 +74,26 @@ class LocalDataSourceImpl implements LocalDataSource {
       return true;
     } catch (e) {
       return throw SetDataException("shut fuck up");
+    }
+  }
+
+  @override
+  Future<bool> deleteTaskEntityLocalDataSource({required int id}) async {
+    try {
+      allData.removeAt(id);
+      return true;
+    } catch (e) {
+      return throw ProvideDataException("can not provide data");
+    }
+  }
+
+  @override
+  Future<bool> sortTaskEntityLocalDataSource() async {
+    try {
+      allData.sort();
+      return true;
+    } catch (e) {
+      return throw ProvideDataException("can not provide data");
     }
   }
 }

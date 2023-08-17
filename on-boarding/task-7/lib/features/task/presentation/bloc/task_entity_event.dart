@@ -13,13 +13,24 @@ class TaskEntitySingleTaskEvent implements TaskEntityEvent {
   final int id;
 
   TaskEntitySingleTaskEvent(this.id);
-  
 }
 
 class TaskEntityAllTaskEvent implements TaskEntityEvent {}
 
-class TaskEntityEditTaskEvent implements TaskEntityEvent{
-    final TaskEntity taskEntity;
+class TaskEntityEditTaskEvent implements TaskEntityEvent {
+  final TaskEntity taskEntity;
 
-    TaskEntityEditTaskEvent(this.taskEntity);
+  TaskEntityEditTaskEvent(this.taskEntity);
+}
+
+class TaskEntityDeleteTaskEvent implements TaskEntityEvent {
+  final int id;
+
+  TaskEntityDeleteTaskEvent(this.id);
+  
+}
+
+
+class TaskEntitySortTaskEvent implements TaskEntityEvent {
+  
 }

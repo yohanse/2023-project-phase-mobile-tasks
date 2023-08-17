@@ -10,5 +10,8 @@ abstract class TaskRepository {
   Future<Either<Failure, TaskEntity>> getSingleTaskRepository(
       {required int id});
   Future<Either<Failure, bool>> editTaskRepository(
-      {required TaskEntity taskEntity}); 
+      {required TaskEntity taskEntity});
+
+  Future<Either<Failure, bool>> deleteTaskRepository({required int id});
+  Future<Either<Failure, bool>> sortTaskRepository();
 }

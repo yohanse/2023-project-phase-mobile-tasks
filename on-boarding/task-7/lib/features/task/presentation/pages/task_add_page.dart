@@ -30,7 +30,7 @@ class CreatTaskPage extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: BlocProvider<TaskEntityBloc>(
-        create: (context) => TaskEntityBloc( ),
+        create: (context) => TaskEntityBloc(),
         child: Container(
           padding: const EdgeInsets.only(
             top: 20,
@@ -46,9 +46,52 @@ class CreatTaskPage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              TextWithTextField(
-                title: "Due date",
-                textController: date,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Date",
+                    style: TextStyle(
+                      color: Color(0xFFEE6F57),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  TextField(
+                    controller: date,
+                    maxLines: null,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      hintText: "date",
+                      hintStyle: const TextStyle(
+                        color: Colors.grey,
+                      ),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(15),
+                        ),
+                        borderSide: BorderSide.none,
+                      ),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.date_range),
+                        onPressed: () {
+                          showDatePicker(
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime.now(),
+                            lastDate: DateTime(2024),
+                          ).then((value) => {
+                            date.text = value.toString().substring(0, 10)
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 20,
@@ -72,7 +115,7 @@ class CreatTaskPage extends StatelessWidget {
                         title: mainName.text,
                         description: description.text,
                         notes: "programmer",
-                        dueDate: DateTime(2023, 08, 16),
+                        dueDate: DateTime.parse(date.text),
                       ),
                     ));
                     Navigator.pop(context);
