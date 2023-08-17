@@ -25,6 +25,7 @@ class Building extends StatelessWidget {
               return GestureDetector(
                 child: TaskWidget(
                   task: state.listOfTaskEntity[index],
+                  index: index,
                 ),
                 onTap: () {
                   Navigator.push(

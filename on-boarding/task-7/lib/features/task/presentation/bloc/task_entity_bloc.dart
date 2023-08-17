@@ -3,9 +3,11 @@ import 'package:meta/meta.dart';
 import 'package:second/features/task/data/datasource/local_data_source.dart';
 import 'package:second/features/task/domain/entities/task_entity.dart';
 import 'package:second/features/task/domain/usecases/create_task_usecase.dart';
+import 'package:second/features/task/domain/usecases/delete_task_usecase.dart';
 import 'package:second/features/task/domain/usecases/edit_task_usecase.dart';
 import 'package:second/features/task/domain/usecases/get_all_tasks_usecase.dart';
 import 'package:second/features/task/domain/usecases/get_single_task_usecase.dart';
+import 'package:second/features/task/domain/usecases/sort_task_usecase.dart';
 
 import '../../data/repositories/task_repositorie_impl.dart';
 import '../../domain/repositories/task_repositories.dart';
@@ -18,6 +20,8 @@ CreateTAskUsecase createTaskUsecase = CreateTAskUsecase(repository);
 GetAllTasksUsecase getAllTasksUsecase = GetAllTasksUsecase(repository);
 GetSingleTaskUsecase getSingleTaskUsecase = GetSingleTaskUsecase(repository);
 EditTAskUsecase editTaskUseCase = EditTAskUsecase(repository);
+DeleteTAskUsecase deleteTAskUsecase = DeleteTAskUsecase(repository);
+SortTAskUsecase sortTAskUsecase = SortTAskUsecase(repository);
 
 class TaskEntityBloc extends Bloc<TaskEntityEvent, TaskEntityState> {
   TaskEntityBloc() : super(TaskEntityInitial()) {
@@ -59,7 +63,37 @@ class TaskEntityBloc extends Bloc<TaskEntityEvent, TaskEntityState> {
             (l) => ErrorState(l.message), (r) => AllTaskEntitySucessState(r));
         emit(state);
       }
+    });
 
+    on<TaskEntityDeleteTaskEvent>((event, emit) async {
+      emit(LoadingState());
+      var result = await deleteTAskUsecase(id: event.id);
+      var state =
+          result.fold((l) => ErrorState(l.message), (r) => DeleteSucessState());
+      if (state is ErrorState) {
+        emit(state);
+      } else {
+        emit(LoadingState());
+        var result = await getAllTasksUsecase();
+        var state = result.fold(
+            (l) => ErrorState(l.message), (r) => AllTaskEntitySucessState(r));
+        emit(state);
+      }
+    });
+    on<TaskEntitySortTaskEvent>((event, emit) async {
+      emit(LoadingState());
+      var result = await sortTAskUsecase();
+      var state =
+          result.fold((l) => ErrorState(l.message), (r) => SortSucessState());
+      if (state is ErrorState) {
+        emit(state);
+      } else {
+        emit(LoadingState());
+        var result = await getAllTasksUsecase();
+        var state = result.fold(
+            (l) => ErrorState(l.message), (r) => AllTaskEntitySucessState(r));
+        emit(state);
+      }
     });
   }
 }

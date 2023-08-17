@@ -23,3 +23,7 @@ class ErrorState implements TaskEntityState {
 class CreateSucessState {}
 
 class EditSucessState {}
+
+class DeleteSucessState {}
+
+class SortSucessState {}

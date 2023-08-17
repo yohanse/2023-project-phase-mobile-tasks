@@ -26,7 +26,6 @@ class TaskRepositoryImpl implements TaskRepository {
           taskEntityModel: taskEntityModel);
       return const Right(true);
     } catch (e) {
-      print("lisping");
       return Left(
         LocalDataBaseFailure(
           e.toString(),
@@ -65,9 +64,10 @@ class TaskRepositoryImpl implements TaskRepository {
       );
     }
   }
-  
+
   @override
-  Future<Either<Failure, bool>> editTaskRepository({required TaskEntity taskEntity}) async{
+  Future<Either<Failure, bool>> editTaskRepository(
+      {required TaskEntity taskEntity}) async {
     try {
       TaskEntityModel taskEntityModel = TaskEntityModel(
           creationDate: taskEntity.creationDate!,
@@ -81,6 +81,35 @@ class TaskRepositoryImpl implements TaskRepository {
           taskEntityModel: taskEntityModel);
       return const Right(true);
     } catch (e) {
+      return Left(
+        LocalDataBaseFailure(
+          e.toString(),
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> deleteTaskRepository({required int id}) async {
+    try {
+      await localDataSource.deleteTaskEntityLocalDataSource(id: id);
+      return const Right(true);
+    } catch (e) {
+      return Left(
+        LocalDataBaseFailure(
+          e.toString(),
+        ),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> sortTaskRepository() async{
+    try{
+      localDataSource.sortTaskEntityLocalDataSource();
+      return const Right(true);
+    }
+    catch (e){
       return Left(
         LocalDataBaseFailure(
           e.toString(),

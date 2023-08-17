@@ -12,22 +12,37 @@ class TaskListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            "Todo List",
-            style: TextStyle(
-              color: Colors.black,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            const Text(
+              "Todo List",
+              style: TextStyle(
+                color: Colors.black,
+              ),
             ),
-          ),
+            GestureDetector(
+              child: const Text(
+                "Sort",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              onTap: () {
+                BlocProvider.of<TaskEntityBloc>(context)
+                    .add(TaskEntitySortTaskEvent());
+              },
+            ),
+          ],
         ),
         backgroundColor: Colors.white,
       ),
       body: const Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             Text(
+            Text(
               "Tasks list",
               style: TextStyle(
                 fontSize: 20,
@@ -35,7 +50,7 @@ class TaskListPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child:Building(),
+              child: Building(),
             ),
           ],
         ),
@@ -68,4 +83,3 @@ class TaskListPage extends StatelessWidget {
     );
   }
 }
-
