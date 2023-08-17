@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:second/features/task/presentation/pages/task_add_page.dart';
-import 'package:second/features/task/presentation/pages/task_detail.dart';
 
 import '../bloc/task_entity_bloc.dart';
-import '../widget/widget_task.dart';
+import 'building_page.dart';
 
 class TaskListPage extends StatelessWidget {
   const TaskListPage({super.key});
@@ -23,12 +22,12 @@ class TaskListPage extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
       ),
-      body: Padding(
+      body: const Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+             Text(
               "Tasks list",
               style: TextStyle(
                 fontSize: 20,
@@ -36,42 +35,7 @@ class TaskListPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: BlocBuilder<TaskEntityBloc, TaskEntityState>(
-                builder: (context, state) {
-                  if (state is LoadingState) {
-                    return const Center(
-                      child: Text("Loading"),
-                    );
-                  } else if (state is ErrorState) {
-                    return Center(
-                      child: Text(state.message),
-                    );
-                  } else if (state is AllTaskEntitySucessState) {
-                    return ListView.builder(
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          child: TaskWidget(
-                            task: state.listOfTaskEntity[index],
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => TaskDetailView(
-                                    task: state.listOfTaskEntity[index]),
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      itemCount: state.listOfTaskEntity.length,
-                    );
-                  }
-                  return const Center(
-                    child: Text("nothing"),
-                  );
-                },
-              ),
+              child:Building(),
             ),
           ],
         ),
@@ -104,3 +68,4 @@ class TaskListPage extends StatelessWidget {
     );
   }
 }
+

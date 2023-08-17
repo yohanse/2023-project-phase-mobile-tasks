@@ -22,10 +22,11 @@ class TaskRepositoryImpl implements TaskRepository {
           description: taskEntity.description,
           notes: taskEntity.notes,
           dueDate: taskEntity.dueDate);
-      localDataSource.setTaskEntityModelLocalDataSource(
+      await localDataSource.setTaskEntityModelLocalDataSource(
           taskEntityModel: taskEntityModel);
       return const Right(true);
     } catch (e) {
+      print("lisping");
       return Left(
         LocalDataBaseFailure(
           e.toString(),
@@ -59,6 +60,29 @@ class TaskRepositoryImpl implements TaskRepository {
     } catch (e) {
       return Left(
         DataProvideFailure(
+          e.toString(),
+        ),
+      );
+    }
+  }
+  
+  @override
+  Future<Either<Failure, bool>> editTaskRepository({required TaskEntity taskEntity}) async{
+    try {
+      TaskEntityModel taskEntityModel = TaskEntityModel(
+          creationDate: taskEntity.creationDate!,
+          id: taskEntity.id!,
+          isCompleted: taskEntity.isCompleted!,
+          title: taskEntity.title,
+          description: taskEntity.description,
+          notes: taskEntity.notes,
+          dueDate: taskEntity.dueDate);
+      await localDataSource.editTaskEntityLocalDataSource(
+          taskEntityModel: taskEntityModel);
+      return const Right(true);
+    } catch (e) {
+      return Left(
+        LocalDataBaseFailure(
           e.toString(),
         ),
       );

@@ -25,8 +25,8 @@ class TaskEntityModel extends TaskEntity {
         title: json['title'],
         description: json['description'],
         notes: json['notes'],
-        dueDate: json['dueDate'],
-        creationDate: json['creationDate'],
+        dueDate: DateTime.parse(json['dueDate']),
+        creationDate: DateTime.parse(json['creationDate']),
         isCompleted: json['isCompleted'],
         id: json['id']);
   }
@@ -36,8 +36,8 @@ class TaskEntityModel extends TaskEntity {
       'title': title,
       'description': description,
       'notes': notes,
-      'dueDate': dueDate,
-      'creationDate': creationDate,
+      'dueDate': dueDate.toIso8601String(),
+      'creationDate': creationDate.toIso8601String(),
       'isCompleted': isCompleted,
       'id': id,
     };

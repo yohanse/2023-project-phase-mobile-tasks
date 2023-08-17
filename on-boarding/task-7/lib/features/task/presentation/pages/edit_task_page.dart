@@ -6,12 +6,16 @@ import 'package:second/features/task/presentation/bloc/task_entity_bloc.dart';
 import '../widget/text_withtextfield.dart';
 
 // ignore: must_be_immutable
-class CreatTaskPage extends StatelessWidget {
-  CreatTaskPage({super.key});
-
-  TextEditingController mainName = TextEditingController();
-  TextEditingController date = TextEditingController();
-  TextEditingController description = TextEditingController();
+class EditTaskPage extends StatelessWidget {
+  final TaskEntity taskEntity;
+  late final TextEditingController mainName;
+  late final TextEditingController date;
+  late final TextEditingController description;
+  EditTaskPage({required this.taskEntity, super.key}) {
+    mainName = TextEditingController(text: taskEntity.title);
+    date = TextEditingController(text: '${taskEntity.dueDate.day} / ${taskEntity.dueDate.month} / ${taskEntity.dueDate.year}');
+    description = TextEditingController(text: taskEntity.description);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class CreatTaskPage extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       body: BlocProvider<TaskEntityBloc>(
-        create: (context) => TaskEntityBloc( ),
+        create: (context) => TaskEntityBloc(),
         child: Container(
           padding: const EdgeInsets.only(
             top: 20,
@@ -67,14 +71,18 @@ class CreatTaskPage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {
                     BlocProvider.of<TaskEntityBloc>(context)
-                        .add(TaskEntityCreateTaskEvent(
+                        .add(TaskEntityEditTaskEvent(
                       TaskEntity(
                         title: mainName.text,
                         description: description.text,
                         notes: "programmer",
                         dueDate: DateTime(2023, 08, 16),
+                        id: taskEntity.id,
+                        creationDate: taskEntity.creationDate,
+                        isCompleted: taskEntity.isCompleted,
                       ),
                     ));
+                    Navigator.pop(context);
                     Navigator.pop(context);
                   },
                   style: ElevatedButton.styleFrom(
@@ -85,7 +93,7 @@ class CreatTaskPage extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    "Add task",
+                    "Update task",
                   ),
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:second/core/failure/exception.dart';
 import 'package:second/features/task/data/datasource/data.dart';
 import 'package:second/features/task/data/models/task_model.dart';
 
@@ -8,6 +9,8 @@ abstract class LocalDataSource {
   Future<int> getLastTaskEntityModelId();
   Future<TaskEntityModel> getSingleTaskEntityModel({required int id});
   Future<List<TaskEntityModel>> getAllTaskEntityModel();
+  Future<bool> editTaskEntityLocalDataSource(
+      {required TaskEntityModel taskEntityModel});
 }
 
 class LocalDataSourceImpl implements LocalDataSource {
@@ -21,7 +24,7 @@ class LocalDataSourceImpl implements LocalDataSource {
       });
       return allTaskEntityModel;
     } catch (e) {
-      throw Exception("can not provide data");
+      return throw ProvideDataException("can not provide data");
     }
   }
 
@@ -31,19 +34,18 @@ class LocalDataSourceImpl implements LocalDataSource {
       int nextId = allData.length;
       return nextId;
     } catch (e) {
-      throw Exception("can not provide id");
+      return throw ProvideIdException("can not provide id");
     }
   }
 
   @override
-  Future<TaskEntityModel> getSingleTaskEntityModel(
-      {required int id}) async {
+  Future<TaskEntityModel> getSingleTaskEntityModel({required int id}) async {
     try {
       var parsedJson = jsonDecode(allData[id]);
       TaskEntityModel taskEntityModel = TaskEntityModel.fromJson(parsedJson);
       return taskEntityModel;
     } catch (e) {
-      throw Exception("can not provide data");
+      return throw ProvideDataException("can not provide data");
     }
   }
 
@@ -51,12 +53,25 @@ class LocalDataSourceImpl implements LocalDataSource {
   Future<bool> setTaskEntityModelLocalDataSource(
       {required TaskEntityModel taskEntityModel}) async {
     try {
-      var json = taskEntityModel.toJson();
-      var encodedJson = jsonEncode(json);
+      Map<String, dynamic> json = taskEntityModel.toJson();
+      String encodedJson = jsonEncode(json);
       allData.add(encodedJson);
       return true;
     } catch (e) {
-      throw Exception("can not set data");
+      return throw SetDataException("shut fuck up");
+    }
+  }
+
+  @override
+  Future<bool> editTaskEntityLocalDataSource(
+      {required TaskEntityModel taskEntityModel}) async {
+    try {
+      Map<String, dynamic> json = taskEntityModel.toJson();
+      String encodedJson = jsonEncode(json);
+      allData[taskEntityModel.id] = encodedJson;
+      return true;
+    } catch (e) {
+      return throw SetDataException("shut fuck up");
     }
   }
 }

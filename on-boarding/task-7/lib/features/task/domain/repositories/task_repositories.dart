@@ -9,5 +9,6 @@ abstract class TaskRepository {
   Future<Either<Failure, List<TaskEntity>>> getAllTaskRepository();
   Future<Either<Failure, TaskEntity>> getSingleTaskRepository(
       {required int id});
-      
+  Future<Either<Failure, bool>> editTaskRepository(
+      {required TaskEntity taskEntity}); 
 }

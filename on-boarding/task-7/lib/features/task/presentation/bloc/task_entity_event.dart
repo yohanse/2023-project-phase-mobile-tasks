@@ -17,3 +17,9 @@ class TaskEntitySingleTaskEvent implements TaskEntityEvent {
 }
 
 class TaskEntityAllTaskEvent implements TaskEntityEvent {}
+
+class TaskEntityEditTaskEvent implements TaskEntityEvent{
+    final TaskEntity taskEntity;
+
+    TaskEntityEditTaskEvent(this.taskEntity);
+}
